@@ -1,7 +1,7 @@
 <?php
 
-require_once '../src/Repositories/UserRepository.php';
-require_once '../src/Services/UserServices.php';
+require_once __DIR__ . '/../Repositories/UserRepository.php';
+require_once __DIR__ . '/../Services/UserServices.php';
 
 class UserController
 {

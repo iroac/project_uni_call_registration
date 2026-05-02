@@ -1,19 +1,20 @@
 <?php
 
-require_once "../src/Controllers/UserController.php";
+require_once __DIR__ . "/../Controllers/UserController.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
+$uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$route = isset($_GET['route']) ? trim($_GET['route'], '/') : $uri;
 
 $userController = new UserController();
 
-if ($method === 'GET' && $uri === '/users') {
+if ($method === 'GET' && $route === 'api/users') {
     $users = $userController->getUsers();
     echo json_encode(["users" => $users]);
     return;
 }
 
-if ($method === 'GET' && preg_match('#^/users/(\d+)$#', $uri, $matches)) {
+if ($method === 'GET' && preg_match('#^api/users/(\d+)$#', $route, $matches)) {
     $user = $userController->getUser($matches[1]);
 
     if (!$user) {
@@ -26,7 +27,7 @@ if ($method === 'GET' && preg_match('#^/users/(\d+)$#', $uri, $matches)) {
     return;
 }
 
-if ($method === 'GET' && $uri === '/') {
+if ($method === 'GET' && $route === 'api') {
     echo json_encode(["message" => "API is running"]);
     return;
 }
