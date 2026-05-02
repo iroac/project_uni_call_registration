@@ -1,0 +1,11 @@
+:root {
+	--bs-primary: #ff862f;
+	--bs-primary-rgb: 255, 134, 47;
+	--bs-secondary: #7000c0;
+	--bs-secondary-rgb: 112, 0, 192;
+	--bs-body-bg: #ecebe4;
+}
+
+body {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
