@@ -1,24 +1,32 @@
 <?php
 
-require_once '../src/Models/User.php';
+require_once '../src/Repositories/UserRepository.php';
+require_once '../src/Services/UserServices.php';
 
-class UserController {
+class UserController
+{
 
-    private $userModel;
+    private $userServices;
+    private $userRepository;
 
-    public function __construct() {
-        $this->userModel = new User();
+    public function __construct()
+    {
+        $this->userRepository = new UserRepository();
+        $this->userServices = new UserServices($this->userRepository);
     }
 
-    public function getUsers() {
-        return $this->userModel->getAll();
+    public function getUsers()
+    {
+        return $this->userServices->getAll();
     }
 
-    public function getUser($id) {
-        return $this->userModel->findById($id);
+    public function getUser($id)
+    {
+        return $this->userServices->find($id);
     }
 
-    public function createUser($data) {
-        return $this->userModel->create($data);
+    public function createUser($data)
+    {
+        return $this->userServices->create($data);
     }
 }
