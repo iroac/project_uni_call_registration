@@ -18,4 +18,6 @@ body {
 	--bs-btn-hover-border-color: #e87522;
 	--bs-btn-active-bg: #d86d20;
 	--bs-btn-active-border-color: #d86d20;
+	--bs-btn-disabled-bg: var(--bs-primary);
+	--bs-btn-disabled-border-color: var(--bs-primary);
 }
