@@ -4,6 +4,8 @@ header("Access-Control-Allow-Origin: *");
 
 // Quando usar o PHP built-in server, a variável $_GET['route'] não estará
 //  disponível, então precisamos usar REQUEST_URI para determinar a rota.
+// $_GET['route'] é usado quando o servidor é configurado para redirecionar 
+// todas as requisições para index.php, como em um ambiente de produção com Apache ou Nginx.
 if (isset($_GET['route'])) {
     $route = trim($_GET['route'], '/');
 } else {

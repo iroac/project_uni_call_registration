@@ -9,3 +9,13 @@
 body {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* Bootstrap sets these on .btn-primary; override them here. */
+.btn-primary {
+	--bs-btn-bg: var(--bs-primary);
+	--bs-btn-border-color: var(--bs-primary);
+	--bs-btn-hover-bg: #e87522;
+	--bs-btn-hover-border-color: #e87522;
+	--bs-btn-active-bg: #d86d20;
+	--bs-btn-active-border-color: #d86d20;
+}
