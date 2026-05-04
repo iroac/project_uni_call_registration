@@ -27,6 +27,15 @@ class UserRepository
         return $user ?: null;
     }
 
+    public function getByEmail($email)
+    {
+        $stmt = $this->pdo->prepare("SELECT id, name, email, password FROM {$this->table} WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+
+        return $user ?: null;
+    }
+
     public function createUser($data)
     {
         $stmt = $this->pdo->prepare(

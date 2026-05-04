@@ -46,9 +46,9 @@ form.addEventListener("submit", async (event) => {
 			},
 		});
 
-		const { message } = await response.json();
+		const { message, error } = await response.json();
 
-		console.log("Resposta do servidor:", message);
+		console.log("Resposta do servidor:", message || error);
 	} catch (error) {
 		console.error("Erro ao fazer login:", error);
 	} finally {
