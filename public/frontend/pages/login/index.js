@@ -1,4 +1,5 @@
-import { API_BASE_URL } from "../../global/constants.js";
+import { postLogin } from "../../global/api.js";
+import { getFormData, isSubmitting } from "../../utils/form.js";
 
 const form = document.getElementById("formLogin");
 
@@ -21,30 +22,13 @@ const disableLoginFields = (isDisabled) => {
 	passwordField.disabled = isDisabled;
 };
 
-const isSubmitting = (isSubmitting) => {
-	disableLoginFields(isSubmitting);
-	toggleButtonLoadingState(isSubmitting);
-};
-
 form.addEventListener("submit", async (event) => {
 	event.preventDefault();
-	const formData = new FormData(form);
-
-	const data = {};
-
-	for (const [key, value] of formData.entries()) {
-		data[key] = value;
-	}
+	const data = getFormData(form);
 
 	try {
 		isSubmitting(true);
-		const response = await fetch(`${API_BASE_URL}/auth/login`, {
-			method: "POST",
-			body: JSON.stringify(data),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		const response = await postLogin(data);
 
 		const { message, error } = await response.json();
 

@@ -1,55 +1,61 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/frontend/pages/cadastro/index.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <title>Sistemas de chamados</title>
-    <script src="/frontend/pages/cadastro/index.js" defer></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-      defer
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-      defer
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-      crossorigin="anonymous"
-      defer
-    ></script>
-    <link rel="stylesheet" href="/frontend/global/styles.css" />
-  </head>
-  <body>
-    <div
-      class="container text-center justify-content-center align-items-center d-flex flex-column vh-100"
-    >
-      <div
-        class="container w-50 p-5 bg-white justify-content-start shadow-sm border border-gray rounded-3"
-      >
-        <h1 class="font-bold">Criar conta</h1>
-        <p class="fs-5">Preencha os campos abaixo para criar sua conta</p>
 
-        <div
-          class="d-flex flex-column justify-content-center gap-2 align-items-stretch mt-4"
-        >
-          <a href="/login" class="btn btn-primary btn-lg w-100">Entrar</a>
-          <a href="/cadastro" class="btn btn-light btn-lg w-100"
-            >Cadastrar-se</a
-          >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/frontend/pages/cadastro/index.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <title>Sistemas de chamados</title>
+  <script src="/frontend/pages/cadastro/index.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"
+    defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"
+    defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"
+    defer></script>
+  <link rel="stylesheet" href="/frontend/global/styles.css" />
+</head>
+
+<body>
+  <div class="container justify-content-center align-items-center d-flex flex-column vh-100">
+    <div class="container w-50 p-3 bg-white shadow-sm border border-gray rounded-3 text-start">
+      <h1 class="font-bold">Cadastrar</h1>
+      <p class="fs-5">Preencha os campos abaixo para criar sua conta</p>
+
+      <form id="formCadastro">
+        <div class="mb-3">
+          <label for="cadastroName" class="form-label">Nome</label>
+          <input type="text" class="form-control" name="name" id="cadastroName" placeholder="seu nome">
         </div>
-      </div>
+        <div class="mb-3">
+          <label for="cadastroEmail" class="form-label">E-mail</label>
+          <input type="email" class="form-control" name="email" id="cadastroEmail" placeholder="seu@email.com"
+            aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="cadastroTelefone" class="form-label">Telefone</label>
+          <input type="text" class="form-control" name="telefone" id="cadastroTelefone" placeholder="seu telefone">
+        </div>
+        <div class="mb-3">
+          <label for="cadastroCpf" class="form-label">CPF</label>
+          <input type="text" class="form-control" name="cpf" id="cadastroCpf" placeholder="seu CPF">
+        </div>
+        <div class="mb-3">
+          <label for="cadastroPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password" id="cadastroPassword" placeholder="sua senha">
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-stretch mt-4">
+          <button type="submit" class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm d-none" id="cadastroButtonSpinner" aria-hidden="true"></span>
+            Cadastrar
+          </button>
+        </div>
+      </form>
     </div>
-  </body>
+</body>
+
 </html>
