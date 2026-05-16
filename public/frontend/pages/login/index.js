@@ -10,11 +10,17 @@ form.addEventListener("submit", async (event) => {
 	try {
 		formUtils.isSubmitting(true);
 		const response = await postLogin(formUtils.data);
-		const { message, error } = response.json();
+		const { message, error } = await response.json();
 
-		console.log("Resposta do servidor:", message || error);
+		formUtils.notify(
+			error || message || "Login realizado com sucesso!",
+			error ? "danger" : "success",
+		);
 	} catch (error) {
-		console.error("Erro ao fazer login:", error);
+		formUtils.notify(
+			"Erro ao fazer login. Por favor, tente novamente.",
+			"danger",
+		);
 	} finally {
 		formUtils.isSubmitting(false);
 	}

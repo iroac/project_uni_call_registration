@@ -47,4 +47,15 @@ export class FormUtils {
 		this.disableLoginFields(isSubmitting);
 		this.toggleButtonLoadingState(isSubmitting);
 	};
+
+	notify = (message, type = "success") => {
+		const toastId = `${this.action}-notify-${type}`;
+		const toastElement = document.getElementById(toastId);
+		if (toastElement) {
+			toastElement.querySelector(".toast-body").textContent = message;
+			const toastBootstrap =
+				window.bootstrap?.Toast?.getOrCreateInstance(toastElement);
+			toastBootstrap.show();
+		}
+	};
 }
