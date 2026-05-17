@@ -8,3 +8,12 @@ export const postLogin = (data) =>
 			"Content-Type": "application/json",
 		},
 	});
+
+export const postCadastro = (data) =>
+	fetch(`${API_BASE_URL}/users/register`, {
+		method: "POST",
+		body: JSON.stringify(data),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
