@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../Repositories/UserRepository.php';
 require_once __DIR__ . '/../Services/UserServices.php';
+require_once __DIR__ . '/../Dtos/RegisterUserDto.php';
 
 class UserController
 {
@@ -25,8 +26,9 @@ class UserController
         return $this->userServices->find($id);
     }
 
-    public function createUser($data)
+    public function register($name, $email, $password, $telefone, $cpf)
     {
-        return $this->userServices->create($data);
+        $registerUserDto = new RegisterUserDto($name, $email, $password, $telefone, $cpf);
+        return $this->userServices->register($registerUserDto);
     }
 }

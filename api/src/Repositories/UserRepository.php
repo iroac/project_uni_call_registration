@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../config/database.php';
 class UserRepository
 {
     private PDO $pdo;
-    private string $table = '"users"';
+    private string $table = '"usuarios"';
 
     public function __construct()
     {
@@ -36,16 +36,26 @@ class UserRepository
         return $user ?: null;
     }
 
-    public function createUser($data)
+    public function createUser(User $user)
     {
         $stmt = $this->pdo->prepare(
-            "INSERT INTO {$this->table} (name, email) VALUES (:name, :email) RETURNING id, name, email"
+            "INSERT INTO {$this->table} (name, email, password, telefone, cpf) VALUES (:name, :email, :password, :telefone, :cpf) RETURNING id, name, email"
         );
-        $stmt->execute([
-            'name' => $data['name'] ?? null,
-            'email' => $data['email'] ?? null,
-        ]);
+        try {
 
-        return $stmt->fetch();
+            $stmt->execute([
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $user->password,
+                'telefone' => $user->phone,
+                'cpf' => $user->cpf,
+            ]);
+
+            $user = $stmt->fetch();
+            return $user ? ["user" => $user, "message" => "Usuário criado com sucesso", "status" => 201] : ["message" => "Erro ao criar usuário", "status" => 400];
+        } catch (PDOException $e) {
+            error_log("Erro interno do servidor: " . $e->getMessage());
+            throw new Exception("Erro interno do servidor", 500);
+        }
     }
 }

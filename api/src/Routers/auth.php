@@ -16,3 +16,4 @@ if ($method == 'POST' && $route == 'api/auth/login') {
 
     echo json_encode($authController->login($email, $password));
 }
+

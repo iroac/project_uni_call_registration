@@ -24,3 +24,23 @@ if ($method === 'GET' && preg_match('#^api/users/(\d+)$#', $route, $matches)) {
     echo json_encode($user);
     return;
 }
+
+if ($method == 'POST' && $route == 'api/users/register') {
+    $rawBody = file_get_contents('php://input');
+    $payload = json_decode($rawBody, true) ?? $_POST;
+
+    $name = $payload['name'];
+    $email = $payload['email'];
+    $password = $payload['password'];
+    $phone = $payload['telefone'] ?? null;
+    $cpf = $payload['cpf'] ?? null;
+
+    try {
+        $response = $userController->register($name, $email, $password, $phone, $cpf);
+        http_response_code($response['status']);
+        echo json_encode(["message" => $response['message'], "user" => $response['user'] ?? null]);
+    } catch (Exception $e) {
+        http_response_code($e->getCode() ?: 500);
+        echo json_encode(["error" => $e->getMessage()]);
+    }
+}
