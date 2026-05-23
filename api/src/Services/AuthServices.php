@@ -31,14 +31,18 @@ class AuthService
 
         $user = $this->userRepository->getByEmail($email);
 
-        if (!$user) {
-            throw new Exception("Usuário não encontrado", 404);
+        if ($user && password_verify($password, $user['password'])) {
+
+            if (session_status() !== PHP_SESSION_ACTIVE) {
+                session_start();
+            }
+
+            session_regenerate_id(true);
+            $_SESSION['user_id'] = $user['id'];
+        } else {
+            throw new Exception("Credenciais inválidas", 400);
         }
 
-        if ($user['password'] !== $password) {
-            throw new Exception("Senha incorreta", 400);
-        }
-
-        return $this->authRepository->login($email, $password);
+        return ["message" => "Login bem-sucedido!"];
     }
 }

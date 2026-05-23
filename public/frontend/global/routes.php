@@ -11,22 +11,51 @@ if (isset($_GET['route'])) {
     $route = trim(str_replace('/public', '', $uri), '/');
 }
 
-$routes = [
+$publicRoutes = [
     '' => __DIR__ . '/../pages/main/index.html',
     'login' => __DIR__ . '/../pages/login/index.html',
     'cadastro' => __DIR__ . '/../pages/cadastro/index.html',
 ];
 
-if (array_key_exists($route, $routes)) {
-    $file = $routes[$route];
+$privateRoutes = [
+    'dashboard' => __DIR__ . '/../pages/dashboard/index.html',
+];
+
+session_start();
+
+if (array_key_exists($route, $publicRoutes)) {
+    $file = $publicRoutes[$route];
 
     if (file_exists($file)) {
+
+        if (isset($_SESSION['user_id']) && ($route === 'login' || $route === 'cadastro')) {
+            header('Location: /dashboard');
+            exit;
+        }
+
         include $file;
     } else {
         http_response_code(500);
-        echo "Error: File not found";
+        echo "Error: Página não encontrada";
     }
+} else if (array_key_exists($route, $privateRoutes)) {
+
+    if (isset($_SESSION['user_id'])) {
+        $file = $privateRoutes[$route];
+
+        if (file_exists($file)) {
+            include $file;
+        } else {
+            http_response_code(500);
+            echo "Error: Página não encontrada";
+        }
+    } else {
+        header('Location: /login');
+        exit;
+    }
+} else if (strpos($route, 'api/') === 0) {
+    require_once __DIR__ . '/../Routers/auth.php';
 } else {
     http_response_code(404);
-    echo "Error: Page not found";
+    echo "Error: Página não encontrada";
 }

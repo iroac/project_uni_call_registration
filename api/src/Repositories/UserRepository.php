@@ -46,7 +46,7 @@ class UserRepository
             $stmt->execute([
                 'name' => $user->name,
                 'email' => $user->email,
-                'password' => $user->password,
+                'password' => password_hash($user->password, PASSWORD_DEFAULT),
                 'telefone' => $user->phone,
                 'cpf' => $user->cpf,
             ]);

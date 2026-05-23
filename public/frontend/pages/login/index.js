@@ -16,6 +16,10 @@ form.addEventListener("submit", async (event) => {
 			error || message || "Login realizado com sucesso!",
 			error ? "danger" : "success",
 		);
+
+		if (response.ok) {
+			window.location.href = "/dashboard";
+		}
 	} catch (error) {
 		notify("Erro ao fazer login. Por favor, tente novamente.", "danger");
 	} finally {

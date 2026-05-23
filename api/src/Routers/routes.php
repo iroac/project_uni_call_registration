@@ -7,6 +7,18 @@ try {
     $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
     $route = isset($_GET['route']) ? trim($_GET['route'], '/') : $uri;
 
+    if (str_contains($route, "auth")) {
+        require_once __DIR__ . "/auth.php";
+        return;
+    }
+
+    session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: /login');
+        return;
+    }
+
     // Endpoint para helth check
     if ($method === 'GET' && $route === 'api') {
         echo json_encode(["message" => "API funcionando!"]);
@@ -19,10 +31,6 @@ try {
         return;
     }
 
-    if (str_contains($route, "auth")) {
-        require_once __DIR__ . "/auth.php";
-        return;
-    }
 
     // Default para rotas não encontradas
     http_response_code(404);
