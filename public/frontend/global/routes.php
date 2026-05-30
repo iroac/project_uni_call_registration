@@ -27,8 +27,7 @@ if (array_key_exists($route, $publicRoutes)) {
     $file = $publicRoutes[$route];
 
     if (file_exists($file)) {
-
-        if (isset($_SESSION['user_id']) && ($route === 'login' || $route === 'cadastro')) {
+        if (isset($_SESSION['user_id'])) {
             header('Location: /dashboard');
             exit;
         }
@@ -54,7 +53,7 @@ if (array_key_exists($route, $publicRoutes)) {
         exit;
     }
 } else if (strpos($route, 'api/') === 0) {
-    require_once __DIR__ . '/../Routers/auth.php';
+    require_once __DIR__ . '/../../../api/src/Routers/routes.php';
 } else {
     http_response_code(404);
     echo "Error: Página não encontrada";

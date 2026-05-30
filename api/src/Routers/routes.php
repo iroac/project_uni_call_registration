@@ -7,6 +7,8 @@ try {
     $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
     $route = isset($_GET['route']) ? trim($_GET['route'], '/') : $uri;
 
+    $allowUnrestricted = ['api/users/register'];
+
     if (str_contains($route, "auth")) {
         require_once __DIR__ . "/auth.php";
         return;
@@ -14,7 +16,7 @@ try {
 
     session_start();
 
-    if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['user_id']) && !in_array($route, $allowUnrestricted)) {
         header('Location: /login');
         return;
     }

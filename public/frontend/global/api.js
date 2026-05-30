@@ -10,6 +10,15 @@ export const postLogin = (data) =>
 		},
 	});
 
+export const postLogout = () =>
+	fetch(`${API_BASE_URL}/auth/logout`, {
+		method: "POST",
+		credentials: "include",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+
 export const postCadastro = (data) =>
 	fetch(`${API_BASE_URL}/users/register`, {
 		method: "POST",
