@@ -29,27 +29,28 @@
       <form id="formCadastro">
         <div class="mb-3">
           <label for="cadastro-name" class="form-label">Nome</label>
-          <input type="text" class="form-control" autocomplete="name" name="name" id="cadastro-name"
+          <input required type="text" class="form-control" autocomplete="name" name="name" id="cadastro-name"
             placeholder="seu nome">
         </div>
         <div class="mb-3">
           <label for="cadastro-email" class="form-label">E-mail</label>
-          <input type="email" class="form-control" autocomplete="email" name="email" id="cadastro-email"
+          <input required type="email" class="form-control" autocomplete="email" name="email" id="cadastro-email"
             placeholder="seu@email.com" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
           <label for="cadastro-telefone" class="form-label">Telefone</label>
-          <input type="text" class="form-control" autocomplete="tel" name="telefone" id="cadastro-telefone"
+          <input required type="text" class="form-control" autocomplete="tel" name="telefone" id="cadastro-telefone"
             placeholder="seu telefone">
         </div>
         <div class="mb-3">
           <label for="cadastro-cpf" class="form-label">CPF</label>
-          <input type="text" class="form-control" autocomplete="cpf" name="cpf" id="cadastro-cpf" placeholder="seu CPF">
+          <input required type="text" class="form-control" autocomplete="off" inputmode="numeric" name="cpf"
+            id="cadastro-cpf" placeholder="seu CPF">
         </div>
         <div class="mb-3">
           <label for="cadastro-password" class="form-label">Password</label>
-          <input type="password" class="form-control" autocomplete="new-password" name="password" id="cadastro-password"
-            placeholder="sua senha">
+          <input required type="password" class="form-control" autocomplete="new-password" name="password"
+            id="cadastro-password" placeholder="sua senha">
         </div>
         <div class="d-flex flex-column justify-content-center align-items-stretch mt-4">
           <button type="submit" class="btn btn-primary">
