@@ -1,11 +1,18 @@
 import { postLogin } from "../../global/api.js";
 import { FormUtils } from "../../utils/form.js";
+import { ValidationUtils } from "../../utils/validation.js";
 
 const form = document.getElementById("formLogin");
+const { validateEmail } = new ValidationUtils();
 
 form.addEventListener("submit", async (event) => {
 	event.preventDefault();
 	const { isSubmitting, notify, data } = new FormUtils(form, "login");
+
+	if (data.email && !validateEmail(data.email)) {
+		notify("Por favor, insira um e-mail válido.", "danger");
+		return;
+	}
 
 	try {
 		isSubmitting(true);

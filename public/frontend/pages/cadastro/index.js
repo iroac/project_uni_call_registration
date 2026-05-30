@@ -25,6 +25,11 @@ formCadastro.addEventListener("submit", async (event) => {
 		"cadastro",
 	);
 
+	if (data.password !== data.confirmPassword) {
+		notify("As senhas não coincidem.", "danger");
+		return;
+	}
+
 	if (data.email && !validateEmail(data.email)) {
 		notify("Por favor, insira um e-mail válido.", "danger");
 		return;
@@ -32,7 +37,10 @@ formCadastro.addEventListener("submit", async (event) => {
 
 	try {
 		isSubmitting(true);
-		const response = await postCadastro(data);
+
+		const { confirmPassword, ...cadastroData } = data; // Remove confirmPassword dos dados enviados
+
+		const response = await postCadastro(cadastroData);
 		const { message, error } = await response.json();
 
 		notify(
