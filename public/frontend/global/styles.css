@@ -21,3 +21,14 @@ body {
 	--bs-btn-disabled-bg: var(--bs-primary);
 	--bs-btn-disabled-border-color: var(--bs-primary);
 }
+
+.btn-secondary {
+	--bs-btn-bg: var(--bs-secondary);
+	--bs-btn-border-color: var(--bs-secondary);
+	--bs-btn-hover-bg: #5e00a0;
+	--bs-btn-hover-border-color: #5e00a0;
+	--bs-btn-active-bg: #4b0080;
+	--bs-btn-active-border-color: #4b0080;
+	--bs-btn-disabled-bg: var(--bs-secondary);
+	--bs-btn-disabled-border-color: var(--bs-secondary);
+}
