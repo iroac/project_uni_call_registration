@@ -20,7 +20,7 @@ class UserRepository
 
     public function getUserById($id)
     {
-        $stmt = $this->pdo->prepare("SELECT id, name, email FROM {$this->table} WHERE id = :id");
+        $stmt = $this->pdo->prepare("SELECT id, name, email, telefone, cpf FROM {$this->table} WHERE id = :id");
         $stmt->execute(['id' => $id]);
         $user = $stmt->fetch();
 
