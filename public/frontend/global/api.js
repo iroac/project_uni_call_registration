@@ -1,30 +1,37 @@
 import { API_BASE_URL } from "../global/constants.js";
 
+const defaultOptions = {
+	credentials: "include",
+	headers: { "Content-Type": "application/json" },
+};
+
+const apiFetch = (path, options = {}) => {
+	const merged = {
+		...defaultOptions,
+		...options,
+		headers: { ...defaultOptions.headers, ...(options.headers || {}) },
+	};
+	return fetch(`${API_BASE_URL}${path}`, merged);
+};
+
+// Auth
 export const postLogin = (data) =>
-	fetch(`${API_BASE_URL}/auth/login`, {
+	apiFetch("/auth/login", {
 		method: "POST",
-		credentials: "include",
 		body: JSON.stringify(data),
-		headers: {
-			"Content-Type": "application/json",
-		},
 	});
 
 export const postLogout = () =>
-	fetch(`${API_BASE_URL}/auth/logout`, {
+	apiFetch("/auth/logout", {
 		method: "POST",
-		credentials: "include",
-		headers: {
-			"Content-Type": "application/json",
-		},
 	});
 
 export const postCadastro = (data) =>
-	fetch(`${API_BASE_URL}/users/register`, {
+	apiFetch("/users/register", {
 		method: "POST",
-		credentials: "include",
 		body: JSON.stringify(data),
-		headers: {
-			"Content-Type": "application/json",
-		},
 	});
+
+// User
+
+export const getUserInfo = () => apiFetch("/users/me");

@@ -12,15 +12,14 @@ if ($method === 'GET' && $route === 'api/users') {
     return;
 }
 
-if ($method === 'GET' && preg_match('#^api/users/(\d+)$#', $route, $matches)) {
-    $user = $userController->getUser($matches[1]);
-
-    if (!$user) {
-        http_response_code(404);
-        echo json_encode(["error" => "Usuário não encontrado"]);
+if ($method === 'GET' && $route === 'api/users/me') {
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(["error" => "Não autenticado"]);
         return;
     }
 
+    $user = $userController->getUser($_SESSION['user_id']);
     echo json_encode($user);
     return;
 }

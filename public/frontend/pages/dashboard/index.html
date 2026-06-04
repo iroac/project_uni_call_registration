@@ -20,11 +20,26 @@
 </head>
 
 <body>
-  <div class="container justify-content-center align-items-center d-flex flex-column vh-100">
 
-    <h1 class="font-bold">Dashboard</h1>
-    <p class="fs-5">Só contas logadas podem acessar</p>
-    <button id="logoutBtn" class="btn btn-danger">Sair</button>
+  <div id="dashboardLoad" class="container justify-content-center align-items-center d-flex flex-column vh-100">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div id="dashboardContainer"
+    class="container-fluid justify-content-start align-items-center d-flex flex-column vh-100 d-none pt-4 m-0 ">
+
+    <div class="container-fluid justify-content-between align-items-center d-flex flex-row m-0">
+      <div class="d-flex flex-column">
+        <h1 class="h1 "><strong id="h1BemVindo"></strong></h1>
+        <p>Bem-vindo à sua área pessoal</p>
+      </div>
+
+      <button id="logoutBtn" class="btn btn-danger">Sair</button>
+    </div>
+
+  </div>
 </body>
 
 </html>
