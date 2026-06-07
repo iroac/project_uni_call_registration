@@ -35,3 +35,9 @@ export const postCadastro = (data) =>
 // User
 
 export const getUserInfo = () => apiFetch("/users/me");
+
+export const postUpdateUserInfo = (data) =>
+	apiFetch("/users/update", {
+		method: "PUT",
+		body: JSON.stringify(data),
+	});

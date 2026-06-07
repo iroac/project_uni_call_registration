@@ -19,6 +19,7 @@ $publicRoutes = [
 
 $privateRoutes = [
     'dashboard' => __DIR__ . '/../pages/dashboard/index.html',
+    'editar-dados' => __DIR__ . '/../pages/editarDados/index.html',
 ];
 
 session_start();

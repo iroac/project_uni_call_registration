@@ -1,9 +1,16 @@
 import { postLogout } from "../../global/api.js";
 const logoutBtn = document.getElementById("logoutBtn");
+const editarDadosBtn = document.getElementById("editarDadosBtn");
+let userInfo = null;
 
 logoutBtn.addEventListener("click", async () => {
 	await postLogout();
 	window.location.href = "/login";
+});
+
+editarDadosBtn.addEventListener("click", () => {
+	const url = `/editar-dados?name=${encodeURIComponent(userInfo.name)}&email=${encodeURIComponent(userInfo.email)}&telefone=${encodeURIComponent(userInfo.telefone)}&cpf=${encodeURIComponent(userInfo.cpf)}`;
+	window.location.href = url;
 });
 
 const loadPage = (isLoading) => {
@@ -22,7 +29,7 @@ const loadPage = (isLoading) => {
 
 const loadDashboardData = async () => {
 	loadPage(true);
-	const userInfo = await getUserInfo();
+	userInfo = await getUserInfo();
 	renderUserInfo(userInfo);
 	loadPage(false);
 };
