@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../Controllers/UserController.php";
+require_once __DIR__ . "/../Controllers/ChamadoController.php";
 
 try {
     $method = $_SERVER['REQUEST_METHOD'];
@@ -33,6 +34,10 @@ try {
         return;
     }
 
+    if (str_contains($route, "chamados")) {
+        require_once __DIR__ . "/chamado.php";
+        return;
+    }
 
     // Default para rotas não encontradas
     http_response_code(404);

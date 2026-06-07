@@ -41,3 +41,13 @@ export const postUpdateUserInfo = (data) =>
 		method: "PUT",
 		body: JSON.stringify(data),
 	});
+
+// Chamados
+
+export const getChamados = () => apiFetch("/chamados");
+
+export const postAbrirChamado = (data) =>
+	apiFetch("/chamados", {
+		method: "POST",
+		body: JSON.stringify(data),
+	});

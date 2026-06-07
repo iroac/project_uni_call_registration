@@ -6,6 +6,7 @@ CREATE DATABASE db_chamados;
 \c db_chamados
 
 DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS chamados;
 
 CREATE TABLE IF NOT EXISTS usuarios (
     id SERIAL PRIMARY KEY,
@@ -17,4 +18,15 @@ CREATE TABLE IF NOT EXISTS usuarios (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- INSERT INTO usuarios (name, email, telefone, cpf, password) VALUES ('Vinicius', 'vinicius@gmail.com', '123456789', '12345678900', 'senha123'), ('Arthur', 'arthur@gmail.com', '987654321', '98765432100', 'senha456') ;
+CREATE TABLE IF NOT EXISTS chamados (
+    id_chamado SERIAL PRIMARY KEY,
+    id_usuario INTEGER NOT NULL,
+    titulo VARCHAR(60) NOT NULL,
+    descricao TEXT,
+    departamento VARCHAR(35) NOT NULL,
+    responsavel VARCHAR(45) NOT NULL,
+    regiao VARCHAR(20) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+);

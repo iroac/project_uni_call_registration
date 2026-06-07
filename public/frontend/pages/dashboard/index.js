@@ -1,6 +1,7 @@
 import { postLogout } from "../../global/api.js";
 const logoutBtn = document.getElementById("logoutBtn");
 const editarDadosBtn = document.getElementById("editarDadosBtn");
+const openChamadoBtn = document.getElementById("openChamadoBtn");
 let userInfo = null;
 
 logoutBtn.addEventListener("click", async () => {
@@ -10,6 +11,11 @@ logoutBtn.addEventListener("click", async () => {
 
 editarDadosBtn.addEventListener("click", () => {
 	const url = `/editar-dados?name=${encodeURIComponent(userInfo.name)}&email=${encodeURIComponent(userInfo.email)}&telefone=${encodeURIComponent(userInfo.telefone)}&cpf=${encodeURIComponent(userInfo.cpf)}`;
+	window.location.href = url;
+});
+
+openChamadoBtn.addEventListener("click", () => {
+	const url = "/abrir-chamado";
 	window.location.href = url;
 });
 
