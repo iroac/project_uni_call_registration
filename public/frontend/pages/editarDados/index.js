@@ -8,7 +8,8 @@ const fillFormWithUserData = () => {
 	const urlParams = new URLSearchParams(window.location.search);
 	document.getElementById("editar-name").value = urlParams.get("name") || "";
 	document.getElementById("editar-email").value = urlParams.get("email") || "";
-	document.getElementById("editar-telefone").value = urlParams.get("telefone") || "";
+	document.getElementById("editar-telefone").value =
+		urlParams.get("telefone") || "";
 	document.getElementById("editar-cpf").value = urlParams.get("cpf") || "";
 };
 
@@ -44,9 +45,7 @@ formEditarDados.addEventListener("submit", async (event) => {
 	try {
 		isSubmitting(true);
 
-		const { currentPassword, ...cadastroData } = data; // Remove currentPassword dos dados enviados
-
-		const response = await postUpdateUserInfo(cadastroData);
+		const response = await postUpdateUserInfo(data);
 		const { message, error } = await response.json();
 
 		notify(
@@ -54,7 +53,7 @@ formEditarDados.addEventListener("submit", async (event) => {
 			error ? "danger" : "success",
 		);
 
-		window.location.href = "/dashboard";
+		// window.location.href = "/dashboard";
 	} catch (error) {
 		notify("Erro ao atualizar dados. Por favor, tente novamente.", "danger");
 	} finally {

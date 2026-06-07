@@ -23,7 +23,19 @@ class UserController
 
     public function getUser($id)
     {
-        return $this->userServices->find($id);
+        $result = $this->userServices->find($id);
+        if (is_array($result) && isset($result['password'])) {
+            unset($result['password']);
+        } elseif (is_object($result) && isset($result->password)) {
+            unset($result->password);
+        }
+
+        return $result;
+    }
+
+    public function update($id, $name, $email, $newPassword, $currentPassword, $telefone, $cpf)
+    {
+        return $this->userServices->update($id, $name, $email, $newPassword, $currentPassword, $telefone, $cpf);
     }
 
     public function register($name, $email, $password, $telefone, $cpf)

@@ -20,7 +20,8 @@ class UserRepository
 
     public function getUserById($id)
     {
-        $stmt = $this->pdo->prepare("SELECT id, name, email, telefone, cpf FROM {$this->table} WHERE id = :id");
+        // Include password in the result so callers can verify current password
+        $stmt = $this->pdo->prepare("SELECT id, name, email, password, telefone, cpf FROM {$this->table} WHERE id = :id");
         $stmt->execute(['id' => $id]);
         $user = $stmt->fetch();
 
@@ -34,6 +35,51 @@ class UserRepository
         $user = $stmt->fetch();
 
         return $user ?: null;
+    }
+
+    public function updateUser($id, $name, $email, $newPassword, $telefone, $cpf)
+    {
+        $fields = [];
+        $params = ['id' => $id];
+
+        if ($name !== null) {
+            $fields[] = "name = :name";
+            $params['name'] = $name;
+        }
+
+        if ($email !== null) {
+            $fields[] = "email = :email";
+            $params['email'] = $email;
+        }
+
+        if ($newPassword !== null) {
+            $fields[] = "password = :password";
+            $params['password'] = password_hash($newPassword, PASSWORD_DEFAULT);
+        }
+
+        if ($telefone !== null) {
+            $fields[] = "telefone = :telefone";
+            $params['telefone'] = $telefone;
+        }
+
+        if ($cpf !== null) {
+            $fields[] = "cpf = :cpf";
+            $params['cpf'] = $cpf;
+        }
+
+        if (empty($fields)) {
+            throw new Exception("Nenhum campo para atualizar", 400);
+        }
+
+        $sql = "UPDATE {$this->table} SET " . implode(', ', $fields) . " WHERE id = :id RETURNING id, name, email, telefone, cpf";
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return ["user" => $stmt->fetch(), "message" => "Usuário atualizado com sucesso", "status" => 200];
+        } catch (PDOException $e) {
+            error_log("Erro interno do servidor: " . $e->getMessage());
+            throw new Exception("Erro interno do servidor", 500);
+        }
     }
 
     public function createUser(User $user)

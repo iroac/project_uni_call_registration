@@ -24,6 +24,33 @@ if ($method === 'GET' && $route === 'api/users/me') {
     return;
 }
 
+if ($method === 'PUT' && $route === 'api/users/update') {
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(["error" => "Não autenticado"]);
+        return;
+    }
+
+    $rawBody = file_get_contents('php://input');
+    $payload = json_decode($rawBody, true) ?? $_POST;
+
+    $name = $payload['name'] ?? null;
+    $email = $payload['email'] ?? null;
+    $newPassword = $payload['newPassword'] ?? null;
+    $currentPassword = $payload['currentPassword'] ?? null;
+    $phone = $payload['telefone'] ?? null;
+    $cpf = $payload['cpf'] ?? null;
+
+    try {
+        $response = $userController->update($_SESSION['user_id'], $name, $email, $newPassword, $currentPassword, $phone, $cpf);
+        http_response_code($response['status']);
+        echo json_encode(["message" => $response['message'], "user" => $response['user'] ?? null]);
+    } catch (Exception $e) {
+        http_response_code($e->getCode() ?: 500);
+        echo json_encode(["error" => $e->getMessage()]);
+    }
+}
+
 if ($method == 'POST' && $route == 'api/users/register') {
     $rawBody = file_get_contents('php://input');
     $payload = json_decode($rawBody, true) ?? $_POST;
