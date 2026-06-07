@@ -9,7 +9,13 @@ $route = isset($_GET['route']) ? trim($_GET['route'], '/') : $uri;
 $chamadoController = new ChamadoController();
 
 if ($method === 'GET' && $route === 'api/chamados') {
-    $userId = isset($_GET['user_id']) ? $_GET['user_id'] : null;
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(["error" => "Não autenticado"]);
+        return;
+    }
+
+    $userId = $_SESSION['user_id'] ?? null;
     $chamados = $chamadoController->getChamadosByUserId($userId);
     echo json_encode(["chamados" => $chamados]);
     return;
@@ -37,6 +43,27 @@ if ($method === 'POST' && $route === 'api/chamados') {
         $chamado = $chamadoController->create($titulo, $descricao, $departamento, $responsavel, $regiao, $status, $userId);
         http_response_code(201);
         echo json_encode(["message" => "Chamado criado com sucesso", "chamado" => $chamado]);
+    } catch (Exception $e) {
+        http_response_code($e->getCode() ?: 500);
+        echo json_encode(["error" => $e->getMessage()]);
+    }
+}
+
+if ($method === 'PUT' && preg_match('/api\/chamados\/(\d+)/', $route, $matches)) {
+    $chamadoId = $matches[1];
+    $rawBody = file_get_contents('php://input');
+    $payload = json_decode($rawBody, true) ?? $_POST;
+
+    $titulo = $payload['titulo'] ?? null;
+    $descricao = $payload['descricao'] ?? null;
+    $departamento = $payload['departamento'] ?? null;
+    $responsavel = $payload['responsavel'] ?? null;
+    $regiao = $payload['regiao'] ?? null;
+    $status = $payload['status'] ?? null;
+
+    try {
+        $chamado = $chamadoController->update($chamadoId, $titulo, $descricao, $departamento, $responsavel, $regiao, $status);
+        echo json_encode(["message" => "Chamado atualizado com sucesso", "chamado" => $chamado]);
     } catch (Exception $e) {
         http_response_code($e->getCode() ?: 500);
         echo json_encode(["error" => $e->getMessage()]);

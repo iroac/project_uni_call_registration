@@ -20,7 +20,7 @@ class ChamadoController
     public function getChamadosByUserId($userId)
     {
         $chamados = $this->chamadoServices->getAll();
-        return array_filter($chamados, fn($chamado) => $chamado['user_id'] == $userId);
+        return array_filter($chamados, fn($chamado) => $chamado['id_usuario'] == $userId);
     }
 
     public function getChamado($id)
@@ -31,5 +31,10 @@ class ChamadoController
     public function create($titulo, $descricao, $departamento, $responsavel, $regiao, $status, $userId)
     {
         return $this->chamadoServices->create($titulo, $descricao, $departamento, $responsavel, $regiao, $status, $userId);
+    }
+
+    public function update($id, $titulo = null, $descricao = null, $departamento = null, $responsavel = null, $regiao = null, $status = null)
+    {
+        return $this->chamadoServices->update($id, $titulo, $descricao, $departamento, $responsavel, $regiao, $status);
     }
 }

@@ -26,4 +26,9 @@ class ChamadoServices
     {
         return $this->chamadoRepository->create($titulo, $descricao, $departamento, $responsavel, $regiao, $status, $userId);
     }
+
+    public function update($id, $titulo = null, $descricao = null, $departamento = null, $responsavel = null, $regiao = null, $status = null)
+    {
+        return $this->chamadoRepository->update($id, $titulo, $descricao, $departamento, $responsavel, $regiao, $status);
+    }
 }

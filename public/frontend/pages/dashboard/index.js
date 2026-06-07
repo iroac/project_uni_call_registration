@@ -1,9 +1,10 @@
-import { postLogout } from "../../global/api.js";
+import { postLogout, getChamados } from "../../global/api.js";
 const logoutBtn = document.getElementById("logoutBtn");
 const editarDadosBtn = document.getElementById("editarDadosBtn");
 const openChamadoBtn = document.getElementById("openChamadoBtn");
 const verChamadosBtn = document.getElementById("verChamadosBtn");
 let userInfo = null;
+let listChamados = null;
 
 logoutBtn.addEventListener("click", async () => {
 	await postLogout();
@@ -42,7 +43,9 @@ const loadPage = (isLoading) => {
 const loadDashboardData = async () => {
 	loadPage(true);
 	userInfo = await getUserInfo();
+	listChamados = await getListChamados();
 	renderUserInfo(userInfo);
+	renderChamadosInfo(listChamados);
 	loadPage(false);
 };
 
@@ -60,10 +63,31 @@ const renderUserInfo = (userInfo) => {
 	userCpfContainer.textContent = userInfo.cpf;
 };
 
+const renderChamadosInfo = (listChamados) => {
+	const chamadosAbertosContainer = document.getElementById(
+		"user-chamados-abertos",
+	);
+	const chamadosTotalContainer = document.getElementById("user-chamados-total");
+
+	const chamadosAbertos = listChamados?.filter(
+		(chamado) => chamado.status === "ABERTO" || chamado.status === "ANDAMENTO",
+	).length;
+	const chamadosTotal = listChamados?.length;
+
+	chamadosAbertosContainer.textContent = chamadosAbertos;
+	chamadosTotalContainer.textContent = chamadosTotal;
+};
+
 const getUserInfo = async () => {
 	const response = await fetch("/api/users/me");
 	const userData = await response.json();
 	return userData;
+};
+
+const getListChamados = async () => {
+	const response = await getChamados();
+	const chamadosData = await response.json();
+	return chamadosData.chamados;
 };
 
 loadDashboardData();

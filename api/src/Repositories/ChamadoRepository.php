@@ -37,4 +37,43 @@ class ChamadoRepository
             'id_usuario' => $userId
         ]);
     }
+
+    public function update($id, $titulo = null, $descricao = null, $departamento = null, $responsavel = null, $regiao = null, $status = null)
+    {
+        $fields = [];
+        $params = ['id' => $id];
+
+        if ($titulo !== null) {
+            $fields[] = 'titulo = :titulo';
+            $params['titulo'] = $titulo;
+        }
+        if ($descricao !== null) {
+            $fields[] = 'descricao = :descricao';
+            $params['descricao'] = $descricao;
+        }
+        if ($departamento !== null) {
+            $fields[] = 'departamento = :departamento';
+            $params['departamento'] = $departamento;
+        }
+        if ($responsavel !== null) {
+            $fields[] = 'responsavel = :responsavel';
+            $params['responsavel'] = $responsavel;
+        }
+        if ($regiao !== null) {
+            $fields[] = 'regiao = :regiao';
+            $params['regiao'] = $regiao;
+        }
+        if ($status !== null) {
+            $fields[] = 'status = :status';
+            $params['status'] = $status;
+        }
+
+        if (empty($fields)) {
+            throw new Exception("Nenhum campo para atualizar", 400);
+        }
+
+        $sql = "UPDATE {$this->table} SET " . implode(', ', $fields) . " WHERE id_chamado = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($params);
+    }
 }

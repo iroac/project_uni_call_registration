@@ -54,8 +54,8 @@ const renderListChamados = (chamados) => {
 
 	if (!chamados || chamados.length === 0) {
 		containerChamadosList.innerHTML = `
-	  <div class="alert alert-info" role="alert">
-		Nenhum chamado encontrado. Clique em "Novo" para abrir um chamado.
+	  <div class="alert alert-warning w-100 " role="alert">
+		Nenhum chamado encontrado. Clique em <strong>"Novo"</strong> para abrir um chamado.
 	  </div>
 	`;
 		return;
@@ -110,7 +110,7 @@ const renderListChamados = (chamados) => {
 	// Inicia os tooltips após renderizar os chamados
 	feather.replace();
 
-	// Add event listeners to edit buttons
+	// Adiciona event listeners para os botões de editar
 	const editBtns = document.querySelectorAll(".editBtn");
 
 	for (const btn of editBtns) {
@@ -119,6 +119,12 @@ const renderListChamados = (chamados) => {
 			const foundChamado = listChamados.chamados.find(
 				(chamado) => chamado.id_chamado === Number.parseInt(chamadoId),
 			);
+
+			window.location.href = `/editar-chamado?id=${foundChamado.id_chamado}&titulo=${encodeURIComponent(foundChamado.titulo)}&descricao=${encodeURIComponent(
+				foundChamado.descricao,
+			)}&departamento=${encodeURIComponent(foundChamado.departamento)}&regiao=${encodeURIComponent(foundChamado.regiao)}&responsavel=${encodeURIComponent(
+				foundChamado.responsavel,
+			)}&status=${encodeURIComponent(foundChamado.status)}`;
 		});
 	}
 };
