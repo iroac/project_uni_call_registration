@@ -2,6 +2,7 @@ import { postLogout } from "../../global/api.js";
 const logoutBtn = document.getElementById("logoutBtn");
 const editarDadosBtn = document.getElementById("editarDadosBtn");
 const openChamadoBtn = document.getElementById("openChamadoBtn");
+const verChamadosBtn = document.getElementById("verChamadosBtn");
 let userInfo = null;
 
 logoutBtn.addEventListener("click", async () => {
@@ -16,6 +17,11 @@ editarDadosBtn.addEventListener("click", () => {
 
 openChamadoBtn.addEventListener("click", () => {
 	const url = "/abrir-chamado";
+	window.location.href = url;
+});
+
+verChamadosBtn.addEventListener("click", () => {
+	const url = "/list-chamados";
 	window.location.href = url;
 });
 

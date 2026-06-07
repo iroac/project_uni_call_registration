@@ -2,6 +2,11 @@ import { FormUtils } from "../../utils/form.js";
 import { postAbrirChamado } from "../../global/api.js";
 
 const formAbrirChamado = document.getElementById("formAbrirChamado");
+const chamadoCancelButton = document.getElementById("cancel-button");
+
+chamadoCancelButton.addEventListener("click", () => {
+	window.location.href = "/dashboard";
+});
 
 formAbrirChamado.addEventListener("submit", async (event) => {
 	event.preventDefault();
@@ -24,9 +29,9 @@ formAbrirChamado.addEventListener("submit", async (event) => {
 		);
 
 		// Delay proposital para o usuário ver a notificação antes de redirecionar
-		// setTimeout(() => {
-		// 	window.location.href = "/dashboard";
-		// }, 1000);
+		setTimeout(() => {
+			window.location.href = "/dashboard";
+		}, 1000);
 	} catch (error) {
 		notify("Erro ao abrir chamado. Por favor, tente novamente.", "danger");
 	} finally {

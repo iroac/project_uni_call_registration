@@ -21,6 +21,7 @@ $privateRoutes = [
     'dashboard' => __DIR__ . '/../pages/dashboard/index.html',
     'editar-dados' => __DIR__ . '/../pages/editarDados/index.html',
     'abrir-chamado' => __DIR__ . '/../pages/abrirChamado/index.html',
+    'list-chamados' => __DIR__ . '/../pages/listChamados/index.html',
 ];
 
 session_start();
