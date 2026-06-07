@@ -1,3 +1,6 @@
+# Abertura de Chamado
+<img width="1466" height="825" alt="image" src="https://github.com/user-attachments/assets/add87710-cf08-4bc3-a119-e3e363e3e8a9" />
+
 # Configurações
 Configurações e requisitos iniciais para rodar o projeto de chamados
 
