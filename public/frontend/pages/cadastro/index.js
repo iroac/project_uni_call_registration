@@ -43,12 +43,21 @@ formCadastro.addEventListener("submit", async (event) => {
 		const response = await postCadastro(cadastroData);
 		const { message, error } = await response.json();
 
-		notify(
-			error || message || "Cadastro realizado com sucesso!",
-			error ? "danger" : "success",
-		);
+		if (!response.ok || error) {
+			notify(
+				error ||
+					message ||
+					"Erro ao fazer cadastro. Por favor, tente novamente.",
+				"danger",
+			);
+			return;
+		}
 
-		window.location.href = "/login";
+		notify(message || "Cadastro realizado com sucesso!");
+
+		setTimeout(() => {
+			window.location.href = "/login";
+		}, 1000);
 	} catch (error) {
 		notify("Erro ao fazer cadastro. Por favor, tente novamente.", "danger");
 	} finally {

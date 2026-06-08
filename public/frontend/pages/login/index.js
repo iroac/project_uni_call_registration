@@ -25,7 +25,9 @@ form.addEventListener("submit", async (event) => {
 		);
 
 		if (response.ok) {
-			window.location.href = "/dashboard";
+			setTimeout(() => {
+				window.location.href = "/dashboard";
+			}, 1000);
 		}
 	} catch (error) {
 		notify("Erro ao fazer login. Por favor, tente novamente.", "danger");
