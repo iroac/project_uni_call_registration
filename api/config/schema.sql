@@ -1,5 +1,3 @@
-\c postgres
-
 DROP DATABASE IF EXISTS db_chamados;
 CREATE DATABASE db_chamados;
 
