@@ -20,7 +20,7 @@ class ChamadoController
     public function getChamadosByUserId($userId)
     {
         $chamados = $this->chamadoServices->getAll();
-        return array_filter($chamados, fn($chamado) => $chamado['id_usuario'] == $userId);
+        return array_values(array_filter($chamados, fn($chamado) => $chamado['id_usuario'] == $userId));
     }
 
     public function getChamado($id)

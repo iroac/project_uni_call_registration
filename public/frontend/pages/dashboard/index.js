@@ -45,7 +45,7 @@ const loadDashboardData = async () => {
 	userInfo = await getUserInfo();
 	listChamados = await getListChamados();
 	renderUserInfo(userInfo);
-	renderChamadosInfo(listChamados);
+	renderChamadosInfo();
 	loadPage(false);
 };
 
@@ -63,7 +63,7 @@ const renderUserInfo = (userInfo) => {
 	userCpfContainer.textContent = userInfo.cpf;
 };
 
-const renderChamadosInfo = (listChamados) => {
+const renderChamadosInfo = () => {
 	const chamadosAbertosContainer = document.getElementById(
 		"user-chamados-abertos",
 	);
