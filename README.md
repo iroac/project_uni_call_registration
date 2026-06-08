@@ -18,6 +18,5 @@ Configurações e requisitos iniciais para rodar o projeto de chamados
 #### Instância Postgress
 1. Abra um terminal no diretorio atual
 2. Rode o comando "*psql -h 127.0.0.1 -p 5433 -U postgres -d postgres*"
-2. Senha é apenas a letra maiuscula "A"
 3. Rode o comando "*\i api/config/schema.sql*" (irá iniciar/resetar o banco)
 
